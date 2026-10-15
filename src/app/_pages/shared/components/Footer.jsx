@@ -143,6 +143,19 @@ export default function Footer() {
             </Link>
           </p>
         </div>
+        <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] pt-1 pb-5 text-center text-[12.5px] text-[#5f5f5f]">
+          <p>
+            Website designed and developed by{" "}
+            <a
+              href="https://www.webentric.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm font-semibold text-[#0B0B0B] transition-colors hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+            >
+              WEBENTRIC
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );

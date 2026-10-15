@@ -1,15 +1,3 @@
-/**
- * Central image registry — import images from here everywhere in the app.
- *
- *   import { IMAGES } from "@/assets/images";
- *   <Image src={IMAGES.heroSafety} alt="..." fill />
- *
- * Static imports give Next.js the dimensions at build time, so
- * <Image> gets automatic sizing, lazy-loading and optimization.
- * To add a new image: drop the file in `src/assets/images/`,
- * import it below, and add it to the IMAGES map.
- */
-
 
 import aboutImage from "./images/about.png";
 import slideMain from "./images/heroslides/main.png";
@@ -36,6 +24,16 @@ import cutoutTactileStud from "./images/products/tactileStud.png";
 import cutoutTile from "./images/products/tile.png";
 import logoMark from "./Logo.jpg";
 import logoLockup from "./Logo.webp";
+import airports from "./images/industries/airports.png"
+import highways from "./images/industries/highways.png"
+import hospitals from "./images/industries/hospitals.png"
+import parking from "./images/industries/parking.png"
+import railways from "./images/industries/railways.png"
+import schools from "./images/industries/schools.png"
+import roads from "./images/industries/urban-roads.png"
+import banks from "./images/industries/banks.png"
+import industrial from "./images/industries/industrial-facility.png"
+import construction from "./images/industries/construction-site.png"
 
 export const IMAGES = {
   // About section collage (supplied asset)
@@ -51,9 +49,13 @@ export const IMAGES = {
   slideGlowSignsMobile,
   slideSignage,
   slideSignageMobile,
+
+  // industries images
+  airports, banks, highways, parking, railways, schools, roads, hospitals, industrial, construction,
+
   // Brand marks
-  logoMark, // K mark only — pair with the text wordmark
-  logoLockup, // full lockup with embedded "K Roadtech" text
+  logoMark,
+  logoLockup,
   // Transparent product cutouts, keyed by ProductCutout `art` name
   productCutouts: {
     barrier: cutoutBarrier,

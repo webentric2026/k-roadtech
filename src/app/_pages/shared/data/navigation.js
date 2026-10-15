@@ -15,7 +15,7 @@ export const NAV_LINKS = [
 export const CTA = { label: "Get a Quote", href: "/quote" };
 
 export const CONTACT_META = {
-  email: "amitroadsafety@gmail.com",
+  email: "kroadtechsafetysolutions@gmail.com",
   phone: "+91 98715 47037",
 };
 
