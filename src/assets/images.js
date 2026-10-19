@@ -1,5 +1,6 @@
 
 import aboutImage from "./images/about.png";
+import leadershipImage from "./images/leadership.png";
 import slideMain from "./images/heroslides/main.png";
 import slideMainMobile from "./images/heroslides/main-mobile.jpg";
 import slideEquipment from "./images/heroslides/slide-2.png";
@@ -38,6 +39,8 @@ import construction from "./images/industries/construction-site.png"
 export const IMAGES = {
   // About section collage (supplied asset)
   aboutImage,
+  // Leadership portrait
+  leadershipImage,
   // Supplied heroslides backgrounds + generated mobile portraits
   slideMain,
   slideMainMobile,

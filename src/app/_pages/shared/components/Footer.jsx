@@ -12,7 +12,7 @@ const COMPANY_LINKS = [
   { label: "Industries", href: "/industries" },
   { label: "Blogs", href: "/blogs" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Get a Quote", href: "/quote" },
+  { label: "Get a Quote", href: "/contact" },
 ];
 
 /**
@@ -113,7 +113,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                href="/quote"
+                href="/contact"
                 className="inline-flex h-[42px] items-center rounded-[3px] bg-[#E74725] px-[22px] text-[13.5px] font-semibold text-white transition-colors duration-150 hover:bg-[#c93a1c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B0B0B]"
               >
                 Get a Quote

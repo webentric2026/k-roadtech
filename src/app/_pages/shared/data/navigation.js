@@ -12,7 +12,7 @@ export const NAV_LINKS = [
   { label: "Contact Us", href: "/contact" },
 ];
 
-export const CTA = { label: "Get a Quote", href: "/quote" };
+export const CTA = { label: "Get a Quote", href: "/contact" };
 
 export const CONTACT_META = {
   email: "kroadtechsafetysolutions@gmail.com",
@@ -310,4 +310,6 @@ export const INDUSTRIES = [
     name: "Pedestrian Accessibility",
     href: "/industries/pedestrian-accessibility",
   },
+  { name: "Hospitals", href: "/industries/hospitals" },
+  { name: "Schools", href: "/industries/schools" },
 ];

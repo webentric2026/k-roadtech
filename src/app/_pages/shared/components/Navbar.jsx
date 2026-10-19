@@ -11,15 +11,14 @@ import {
   CTA,
   INDUSTRIES,
   NAV_LINKS,
-  PRODUCT_CATEGORIES,
 } from "@/app/_pages/shared/data/navigation";
 import {
   ArrowRight,
   ChevronDown,
-  ChevronRight,
   MenuIcon,
 } from "./icons";
 import MobileMenu from "./MobileMenu";
+import { PRODUCT_CATEGORIES as NAV_CATEGORIES } from "@/app/_pages/products/data/products";
 
 function isActiveLink(href, pathname) {
   if (href === "/") return pathname === "/";
@@ -29,16 +28,11 @@ function isActiveLink(href, pathname) {
 export default function Navbar() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState(null); // products | industries | null
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [activeSub, setActiveSub] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef(null);
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
-
-  const category = PRODUCT_CATEGORIES[activeCategory] ?? PRODUCT_CATEGORIES[0];
-  const subcategory = category?.subcategories[activeSub] ?? category?.subcategories[0];
 
   const cancelClose = useCallback(() => {
     if (closeTimer.current) {
@@ -54,10 +48,6 @@ export default function Navbar() {
     (menu) => {
       cancelClose();
       setOpenMenu(menu);
-      if (menu === "products") {
-        setActiveCategory(0);
-        setActiveSub(0);
-      }
     },
     [cancelClose]
   );
@@ -65,10 +55,6 @@ export default function Navbar() {
     (menu) => {
       cancelClose();
       setOpenMenu((prev) => (prev === menu ? null : menu));
-      if (menu === "products") {
-        setActiveCategory(0);
-        setActiveSub(0);
-      }
     },
     [cancelClose]
   );
@@ -173,7 +159,7 @@ export default function Navbar() {
               return (
                 <li
                   key={link.label}
-                  className="shrink-0"
+                  className={`shrink-0 ${link.hasMenu === "products" ? "relative" : ""}`}
                   onMouseEnter={() => openMenuNow(link.hasMenu)}
                 >
                   <button
@@ -198,6 +184,45 @@ export default function Navbar() {
                         }`}
                     />
                   </button>
+
+                  {/* Products dropdown */}
+                  {link.hasMenu === "products" && openMenu === "products" && (
+                    <div
+                      id="nav-products-panel"
+                      role="menu"
+                      aria-label="Products"
+                      className="nav-panel-in absolute left-0 top-full z-50 w-64 min-w-[260px] rounded-[3px] border border-black/10 bg-white py-2 shadow-[0_24px_60px_rgba(0,0,0,0.12)]"
+                      onMouseEnter={cancelClose}
+                      onMouseLeave={scheduleClose}
+                    >
+                      <ul className="flex flex-col">
+                        {NAV_CATEGORIES.map((cat) => (
+                          <li key={cat.id}>
+                            <Link
+                              href={`/products?category=${cat.id}`}
+                              role="menuitem"
+                              onClick={() => setOpenMenu(null)}
+                              className="group flex items-center justify-between gap-2 rounded-[3px] px-4 py-2.5 text-[14px] font-medium text-[#0B0B0B] transition-colors hover:bg-black/[0.03] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+                            >
+                              {cat.name}
+                              <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#A3A3A3] transition-colors group-hover:text-[#E74725]" />
+                            </Link>
+                          </li>
+                        ))}
+                        <li>
+                          <Link
+                            href="/products"
+                            role="menuitem"
+                            onClick={() => setOpenMenu(null)}
+                            className="group flex items-center gap-2 rounded-[3px] px-4 py-2.5 text-[14px] font-semibold text-[#E74725] transition-colors hover:bg-[#E74725]/10 hover:text-[#c93a1c] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+                          >
+                            View All Products
+                            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </li>
               );
             })}
@@ -231,134 +256,6 @@ export default function Navbar() {
           onMouseEnter={cancelClose}
           onMouseLeave={scheduleClose}
         >
-          {/* Products mega menu */}
-          {openMenu === "products" && (
-            <div
-              id="nav-products-panel"
-              role="menu"
-              aria-label="Products"
-              className="nav-panel-in absolute inset-x-0 top-full border-b border-black/10 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.12)]"
-            >
-              <div className="mx-auto grid w-full max-w-[1600px] grid-cols-[300px_1fr_1fr] gap-0 px-[clamp(20px,4vw,64px)] py-8">
-                {/* Categories */}
-                <div className="border-r border-black/10 pr-6">
-                  <p className="mb-4 text-[11px] font-semibold tracking-[0.14em] text-[#737373] uppercase">
-                    Categories
-                  </p>
-                  <ul className="flex flex-col gap-1">
-                    {PRODUCT_CATEGORIES.map((c, i) => {
-                      const isActive = i === activeCategory;
-                      return (
-                        <li key={c.slug}>
-                          <div
-                            onMouseEnter={() => {
-                              setActiveCategory(i);
-                              setActiveSub(0);
-                            }}
-                            onFocus={() => {
-                              setActiveCategory(i);
-                              setActiveSub(0);
-                            }}
-                            className={`group flex w-full items-center justify-between gap-2 rounded-[3px] px-3 py-2.5 text-left text-[14px] font-medium transition-colors ${isActive
-                              ? "bg-black/[0.05] text-[#E74725]"
-                              : "text-[#0B0B0B] hover:bg-black/[0.03] hover:text-[#E74725]"
-                              }`}
-                          >
-                            <Link
-                              href={c.href}
-                              role="menuitem"
-                              className="flex-1 rounded-sm focus-visible:outline-2 focus-visible:outline-[#E74725]"
-                            >
-                              {c.name}
-                            </Link>
-                            <ChevronRight
-                              className={`h-4 w-4 shrink-0 ${isActive ? "text-[#E74725]" : "text-[#A3A3A3]"}`}
-                            />
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <Link
-                    href="/products"
-                    className="mt-5 inline-flex items-center gap-2 rounded-sm text-[13.5px] font-semibold text-[#E74725] hover:text-[#c93a1c] focus-visible:outline-2 focus-visible:outline-[#E74725]"
-                  >
-                    View All Products <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-
-                {/* Subcategories */}
-                <div className="border-r border-black/10 px-8">
-                  <p className="mb-4 text-[11px] font-semibold tracking-[0.14em] text-[#737373] uppercase">
-                    {category.name}
-                  </p>
-                  <ul className="flex flex-col gap-0.5">
-                    {category.subcategories.map((s, j) => {
-                      const isActive = j === activeSub;
-                      return (
-                        <li key={s.slug}>
-                          <div
-                            onMouseEnter={() => setActiveSub(j)}
-                            onFocus={() => setActiveSub(j)}
-                            className={`flex items-center justify-between gap-2 rounded-[3px] px-3 py-2 text-left text-[14px] transition-colors ${isActive
-                              ? "bg-black/[0.05] font-semibold text-[#0B0B0B]"
-                              : "font-normal text-[#333333] hover:bg-black/[0.03] hover:text-[#E74725]"
-                              }`}
-                          >
-                            <Link
-                              href={s.href}
-                              role="menuitem"
-                              className="flex-1 rounded-sm focus-visible:outline-2 focus-visible:outline-[#E74725]"
-                            >
-                              {s.name}
-                            </Link>
-                            <ChevronRight
-                              className={`h-4 w-4 shrink-0 ${isActive ? "text-[#E74725]" : "text-[#A3A3A3]"}`}
-                            />
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-
-                {/* Products */}
-                <div className="pl-8">
-                  <p className="mb-4 text-[11px] font-semibold tracking-[0.14em] text-[#737373] uppercase">
-                    {subcategory?.name ?? "Products"}
-                  </p>
-                  {subcategory?.products?.length ? (
-                    <ul className="flex flex-col gap-0.5">
-                      {subcategory.products.map((p) => (
-                        <li key={p.slug}>
-                          <Link
-                            href={p.href}
-                            role="menuitem"
-                            className="block rounded-[3px] px-3 py-2 text-[14px] text-[#333333] transition-colors hover:bg-black/[0.03] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
-                          >
-                            {p.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="px-3 py-2 text-[14px] text-[#737373]">
-                      Browse subcategories to find products.
-                    </p>
-                  )}
-                  {subcategory && (
-                    <Link
-                      href={subcategory.href}
-                      className="mt-5 inline-flex items-center gap-2 rounded-sm text-[13.5px] font-semibold text-[#E74725] hover:text-[#c93a1c] focus-visible:outline-2 focus-visible:outline-[#E74725]"
-                    >
-                      View {subcategory.name} <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Industries dropdown */}
           {openMenu === "industries" && (
             <div

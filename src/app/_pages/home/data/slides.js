@@ -8,14 +8,14 @@
  * Backgrounds are the supplied `images/heroslides` artworks plus
  * generated mobile portraits. Primary hrefs reuse the category URL
  * conventions from `@/app/_pages/shared/data/navigation.js`; every
- * secondary CTA points at `/quote`, the project's enquiry page.
+ * secondary CTA points at `/contact`, the project's enquiry page.
  */
 
 import { IMAGES } from "@/assets/images";
 
 export const AUTOPLAY_MS = 6500;
 
-const QUOTE = { label: "Request a Quote", href: "/quote" };
+const QUOTE = { label: "Request a Quote", href: "/contact" };
 
 export const SLIDES = [
   {

@@ -10,8 +10,8 @@ import {
   CONTACT_META,
   CTA,
   INDUSTRIES,
-  PRODUCT_CATEGORIES,
 } from "@/app/_pages/shared/data/navigation";
+import { PRODUCT_CATEGORIES } from "@/app/_pages/products/data/products";
 import {
   ArrowRight,
   ChevronDown,
@@ -23,6 +23,32 @@ import {
 function isActiveLink(href, pathname) {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function getSubcategories(category) {
+  const map = new Map();
+  for (const p of category.products) {
+    if (!p.subcategory || map.has(p.subcategory)) continue;
+    map.set(p.subcategory, {
+      name: p.subcategory,
+      slug: slugify(p.subcategory),
+      products: [],
+    });
+  }
+  for (const p of category.products) {
+    if (map.has(p.subcategory)) {
+      map.get(p.subcategory).products.push(p);
+    }
+  }
+  return Array.from(map.values());
 }
 
 export default function MobileMenu({ open, onClose, pathname }) {
@@ -238,15 +264,16 @@ export default function MobileMenu({ open, onClose, pathname }) {
               {section === "products" && (
                 <ul id="m-products" className="mb-3 flex flex-col gap-1 pl-4">
                   {PRODUCT_CATEGORIES.map((c) => {
-                    const expanded = catSlug === c.slug;
+                    const expanded = catSlug === c.id;
+                    const subcategories = getSubcategories(c);
                     return (
                       <li
-                        key={c.slug}
+                        key={c.id}
                         className="border-l border-black/[0.12] pl-4"
                       >
                         <div className="flex items-center gap-2">
                           <Link
-                            href={c.href}
+                            href={`/products?category=${c.id}`}
                             onClick={onClose}
                             className="flex flex-1 rounded-sm py-2.5 text-left text-[17px] font-medium text-[#0B0B0B] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
                           >
@@ -255,7 +282,7 @@ export default function MobileMenu({ open, onClose, pathname }) {
                           <button
                             type="button"
                             onClick={() => {
-                              setCatSlug(expanded ? null : c.slug);
+                              setCatSlug(expanded ? null : c.id);
                               setSubSlug(null);
                             }}
                             aria-expanded={expanded}
@@ -273,7 +300,7 @@ export default function MobileMenu({ open, onClose, pathname }) {
                         </div>
                         {expanded && (
                           <ul className="mb-2 flex flex-col gap-0.5 pl-4">
-                            {c.subcategories.map((s) => {
+                            {subcategories.map((s) => {
                               const subExpanded = subSlug === s.slug;
                               return (
                                 <li
@@ -282,13 +309,13 @@ export default function MobileMenu({ open, onClose, pathname }) {
                                 >
                                   <div className="flex items-center gap-2">
                                     <Link
-                                      href={s.href}
+                                      href={`/products?category=${c.id}`}
                                       onClick={onClose}
                                       className="flex flex-1 rounded-sm py-2 text-left text-[15px] text-[#333333] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
                                     >
                                       {s.name}
                                     </Link>
-                                    {s.products?.length > 0 && (
+                                    {s.products.length > 0 && (
                                       <button
                                         type="button"
                                         onClick={() =>
@@ -310,12 +337,12 @@ export default function MobileMenu({ open, onClose, pathname }) {
                                       </button>
                                     )}
                                   </div>
-                                  {subExpanded && s.products?.length > 0 && (
+                                  {subExpanded && s.products.length > 0 && (
                                     <ul className="mb-2 flex flex-col pl-4">
                                       {s.products.map((p) => (
-                                        <li key={p.slug}>
+                                        <li key={p.id}>
                                           <Link
-                                            href={p.href}
+                                            href={`/products/${p.id}`}
                                             onClick={onClose}
                                             className="block rounded-sm py-1.5 text-[14px] text-[#5f5f5f] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
                                           >
