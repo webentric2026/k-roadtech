@@ -191,36 +191,71 @@ export default function Navbar() {
                       id="nav-products-panel"
                       role="menu"
                       aria-label="Products"
-                      className="nav-panel-in absolute left-0 top-full z-50 w-64 min-w-[260px] rounded-[3px] border border-black/10 bg-white py-2 shadow-[0_24px_60px_rgba(0,0,0,0.12)]"
+                      className="nav-panel-in absolute left-0 top-full z-50 w-[340px] overflow-hidden rounded-[4px] border border-black/10 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.12)]"
                       onMouseEnter={cancelClose}
                       onMouseLeave={scheduleClose}
                     >
-                      <ul className="flex flex-col">
-                        {NAV_CATEGORIES.map((cat) => (
-                          <li key={cat.id}>
-                            <Link
-                              href={`/products?category=${cat.id}`}
-                              role="menuitem"
-                              onClick={() => setOpenMenu(null)}
-                              className="group flex items-center justify-between gap-2 rounded-[3px] px-4 py-2.5 text-[14px] font-medium text-[#0B0B0B] transition-colors hover:bg-black/[0.03] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
-                            >
-                              {cat.name}
-                              <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#A3A3A3] transition-colors group-hover:text-[#E74725]" />
-                            </Link>
-                          </li>
-                        ))}
-                        <li>
-                          <Link
-                            href="/products"
-                            role="menuitem"
-                            onClick={() => setOpenMenu(null)}
-                            className="group flex items-center gap-2 rounded-[3px] px-4 py-2.5 text-[14px] font-semibold text-[#E74725] transition-colors hover:bg-[#E74725]/10 hover:text-[#c93a1c] focus-visible:outline-2 focus-visible:outline-[#E74725]"
-                          >
-                            View All Products
-                            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                          </Link>
-                        </li>
+                      <div className="flex items-center justify-between border-b border-black/10 bg-[#F5F5F5] px-4 py-3">
+                        <p className="text-[11px] font-semibold tracking-[0.14em] text-[#5f5f5f] uppercase">
+                          Product Categories
+                        </p>
+                        <span className="rounded-full bg-[#E74725]/10 px-2 py-0.5 text-[11px] font-bold text-[#E74725]">
+                          {NAV_CATEGORIES.length}
+                        </span>
+                      </div>
+                      <ul className="max-h-[60vh] overflow-y-auto py-2">
+                        {NAV_CATEGORIES.map((cat) => {
+                          const thumb =
+                            IMAGES.productCutouts?.[cat.products?.[0]?.image];
+                          const count = cat.products?.length ?? 0;
+                          return (
+                            <li key={cat.id}>
+                              <Link
+                                href={`/products?category=${cat.id}`}
+                                role="menuitem"
+                                onClick={() => setOpenMenu(null)}
+                                className="group flex items-center gap-3 px-4 py-2 transition-colors hover:bg-black/[0.03] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+                              >
+                                <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-[3px] border border-black/10 bg-[#F5F5F5]">
+                                  {thumb ? (
+                                    <Image
+                                      src={thumb}
+                                      alt=""
+                                      fill
+                                      sizes="40px"
+                                      className="object-contain object-center"
+                                    />
+                                  ) : (
+                                    <span className="flex h-full w-full items-center justify-center text-[15px] font-bold text-[#E74725]">
+                                      {cat.name.charAt(0)}
+                                    </span>
+                                  )}
+                                </span>
+                                <span className="min-w-0 flex-1">
+                                  <span className="block truncate text-[13.5px] font-semibold text-[#0B0B0B] transition-colors group-hover:text-[#E74725]">
+                                    {cat.name}
+                                  </span>
+                                  <span className="block text-[11.5px] text-[#A3A3A3]">
+                                    {count} product{count !== 1 ? "s" : ""}
+                                  </span>
+                                </span>
+                                <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-[#E74725] opacity-0 transition-all duration-150 group-hover:translate-x-0 group-hover:opacity-100" />
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </ul>
+                      <div className="border-t border-black/10 p-2">
+                        <Link
+                          href="/products"
+                          role="menuitem"
+                          onClick={() => setOpenMenu(null)}
+                          className="group flex h-[42px] items-center justify-center gap-2 rounded-[3px] bg-[#E74725] px-4 text-[13.5px] font-semibold text-white transition-colors hover:bg-[#c93a1c] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+                        >
+                          View All Products
+                          <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                        </Link>
+                      </div>
                     </div>
                   )}
                 </li>

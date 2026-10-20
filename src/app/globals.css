@@ -107,39 +107,6 @@ body {
   animation: hero-progress 6.5s linear both;
 }
 
-/* Project slideshow: counter-scrolling rows */
-@keyframes slide-rtl {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-@keyframes slide-ltr {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-.showcase-track {
-  animation: slide-rtl 42s linear infinite;
-  will-change: transform;
-}
-.showcase-track.reverse {
-  animation-name: slide-ltr;
-}
-.showcase:hover .showcase-track {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  .showcase-track {
-    animation: none;
-  }
-}
-
 /* Visible keyboard focus everywhere in nav */
 a:focus-visible,
 button:focus-visible {
