@@ -6,7 +6,7 @@ export default function MissionVision() {
       className="w-full bg-[#F5F5F5] text-[#0B0B0B]"
     >
       <div className="mx-auto grid w-full max-w-[1600px] gap-12 px-[clamp(20px,5vw,80px)] py-16 lg:grid-cols-2 lg:py-24 lg:gap-20">
-        <div>
+        <div data-aos="fade-up">
           <h2 className="max-w-[22ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
             Mission &amp; Vision<span className="text-[#E74725]">.</span>
           </h2>
@@ -44,7 +44,9 @@ export default function MissionVision() {
             {ABOUT.values.map((v, i) => (
               <li
                 key={v.name}
-                className="rounded-[4px] border border-black/10 bg-white p-6 shadow-sm"
+                data-aos="fade-up"
+                data-aos-delay={Math.min(i, 3) * 90}
+                className="rounded-[4px] border border-black/10 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#E74725]/40 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]"
               >
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#E74725]/10 text-[#E74725] font-bold text-[13px]">
                   {i + 1}

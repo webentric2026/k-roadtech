@@ -91,12 +91,9 @@ export default function ProjectSlideshow() {
   return (
     <section aria-label="Our products" className="w-full bg-white text-[#0B0B0B]">
       <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-16 lg:py-24">
-        <div className="flex flex-wrap items-end justify-between gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-6" data-aos="fade-up">
           <div className="max-w-[62ch]">
-            <p className="text-[12px] font-semibold tracking-[0.22em] text-[#E74725] uppercase">
-              Our Range
-            </p>
-            <h2 className="mt-3 max-w-[20ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
+            <h2 className="max-w-[20ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
               Our Products<span className="text-[#E74725]">.</span>
             </h2>
             <p className="mt-4 max-w-[60ch] text-[15.5px] leading-7 text-[#5f5f5f]">
@@ -140,6 +137,8 @@ export default function ProjectSlideshow() {
       <div className="pb-4">
         <div
           ref={scrollerRef}
+          data-aos="fade-up"
+          data-aos-delay="120"
           onScroll={update}
           onKeyDown={onKeyDown}
           onMouseEnter={() => setPaused(true)}

@@ -10,7 +10,8 @@ import { ArrowRight } from "@/app/_pages/shared/components/icons";
 export default function ProductCard({ product }) {
   return (
     <article
-      className="group relative overflow-hidden rounded-[4px] border border-black/10 bg-white shadow-sm hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] transition-all duration-200"
+      data-aos="fade-up"
+      className="group relative overflow-hidden rounded-[4px] border border-black/10 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#E74725]/40 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]"
     >
       {/* Product image / placeholder */}
       <div className="relative h-[200px] bg-[#F5F5F5] overflow-hidden">

@@ -39,7 +39,7 @@ export default function ProductsListing({
 
       <section id="product-listing" aria-label="Product listing" className="w-full bg-white text-[#0B0B0B]">
         <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-12 lg:py-16">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-10 lg:mb-14">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-10 lg:mb-14" data-aos="fade-up">
             <div>
               <h2 className="max-w-[20ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
                 Products<span className="text-[#E74725]">.</span>

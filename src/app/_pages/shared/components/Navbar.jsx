@@ -18,6 +18,7 @@ import {
   MenuIcon,
 } from "./icons";
 import MobileMenu from "./MobileMenu";
+import { QuoteButton } from "./QuotePopup";
 import { PRODUCT_CATEGORIES as NAV_CATEGORIES } from "@/app/_pages/products/data/products";
 
 function isActiveLink(href, pathname) {
@@ -29,6 +30,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState(null); // products | industries | null
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef(null);
   const navRef = useRef(null);
@@ -75,9 +77,14 @@ export default function Navbar() {
       if (closeTimer.current) clearTimeout(closeTimer.current);
     };
   }, []);
-  // Subtle header border + shadow on scroll (no layout shift: sticky)
+  // Glass intensity + scroll progress on scroll (no layout shift)
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      const max =
+        document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -145,7 +152,7 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       aria-current={active ? "page" : undefined}
-                      className={`rounded-sm text-[14.5px] font-medium tracking-wide transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E74725] ${active
+                      className={`rounded-sm text-[16px] font-medium tracking-wide transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E74725] ${active
                         ? "text-[#E74725]"
                         : "text-[#0B0B0B] hover:text-[#E74725]"
                         }`}
@@ -173,7 +180,7 @@ export default function Navbar() {
                     aria-haspopup="true"
                     onClick={() => toggleMenu(link.hasMenu)}
                     onFocus={() => openMenuNow(link.hasMenu)}
-                    className={`flex cursor-pointer items-center gap-1.5 rounded-sm text-[14.5px] font-medium tracking-wide transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E74725] ${active || expanded
+                    className={`flex cursor-pointer items-center gap-1.5 rounded-sm text-[16px] font-medium tracking-wide transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E74725] ${active || expanded
                       ? "text-[#E74725]"
                       : "text-[#0B0B0B] hover:text-[#E74725]"
                       }`}
@@ -265,19 +272,16 @@ export default function Navbar() {
 
           {/* Far right: CTA + hamburger */}
           <div className="flex shrink-0 items-center gap-3">
-            <Link
-              href={CTA.href}
-              className="hidden h-[44px] items-center rounded-[3px] bg-[#E74725] px-[24px] text-[14.5px] font-semibold tracking-wide text-white transition-colors duration-150 hover:bg-[#c93a1c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B0B0B] sm:inline-flex"
-            >
+            <QuoteButton className="hidden h-[44px] cursor-pointer items-center rounded-[3px] bg-[#E74725] px-[24px] text-[14.5px] font-semibold tracking-wide text-white transition-colors duration-150 hover:bg-[#c93a1c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B0B0B] sm:inline-flex">
               {CTA.label}
-            </Link>
+            </QuoteButton>
             <button
               ref={hamburgerRef}
               type="button"
               onClick={() => setMobileOpen(true)}
               aria-expanded={mobileOpen}
               aria-controls="webentric-mobile-menu"
-              aria-label="Open menu"
+                aria-label="Open menu"
               className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-sm text-[#0B0B0B] transition-colors hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E74725] lg:hidden"
             >
               <MenuIcon className="h-6 w-6" />
@@ -321,6 +325,16 @@ export default function Navbar() {
             </div>
           )}
         </div>
+        {/* Scroll progress */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] overflow-hidden bg-black/[0.08]"
+        >
+          <span
+            className="block h-full bg-gradient-to-r from-[#E74725] to-[#c93a1c] shadow-[0_0_10px_rgba(231,71,37,0.9)] transition-[width] duration-150"
+            style={{ width: `${progress * 100}%` }}
+          />
+        </span>
       </header>
 
       <MobileMenu

@@ -98,7 +98,7 @@ const ProductSearchToolbar = forwardRef(function ProductSearchToolbar(
     Object.keys(activeFilters).length > 0 || sort !== "name-asc";
 
   return (
-    <div ref={ref} aria-label="Product search and filters" className="w-full bg-white text-[#0B0B0B]">
+    <div ref={ref} aria-label="Product search and filters" data-aos="fade-up" className="w-full bg-white text-[#0B0B0B]">
       <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-12 lg:py-16">
         <div className="relative mb-8 lg:mb-10">
           <label htmlFor="product-search" className="sr-only">

@@ -16,7 +16,13 @@ export const CTA = { label: "Get a Quote", href: "/contact" };
 
 export const CONTACT_META = {
   email: "kroadtechsafetysolutions@gmail.com",
-  phone: "+91 98715 47037",
+  phone: "+91 81301 55514",
+  phones: ["+91 81301 55514", "+91 88608 12559", "+91 99992 35253"],
+  whatsapp: "https://wa.me/918130155514",
+  address:
+    "K Roadtech Safety Solutions, 30/A, Guru Gobind Singh Nagar, Nilothi Extn, New Delhi – 110041",
+  mapEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3501.149667192867!2d77.05772807550157!3d28.655236975652397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjjCsDM5JzE4LjkiTiA3N8KwMDMnMzcuMSJF!5e0!3m2!1sen!2sin!4v1792659466785!5m2!1sen!2sin",
 };
 
 function slugify(text) {

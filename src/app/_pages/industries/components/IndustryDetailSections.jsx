@@ -10,11 +10,8 @@ export function IndustryApplications({ applications }) {
   return (
     <section aria-label="Key applications" className="w-full bg-[#F5F5F5] text-[#0B0B0B]">
       <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-12 lg:py-16">
-        <div className="max-w-[62ch]">
-          <p className="text-[11px] font-semibold tracking-[0.2em] text-[#5f5f5f] uppercase">
-            Key Applications
-          </p>
-          <h2 className="mt-3 max-w-[24ch] text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.1] font-bold tracking-[-0.02em]">
+        <div className="max-w-[62ch]" data-aos="fade-up">
+          <h2 className="max-w-[24ch] text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.1] font-bold tracking-[-0.02em]">
             Where our products help<span className="text-[#E74725]">.</span>
           </h2>
         </div>
@@ -22,7 +19,9 @@ export function IndustryApplications({ applications }) {
           {applications.map((app, i) => (
             <li
               key={app.title}
-              className="flex flex-col rounded-[4px] border border-black/10 bg-white p-6"
+              data-aos="fade-up"
+              data-aos-delay={Math.min(i, 3) * 90}
+              className="flex flex-col rounded-[4px] border border-black/10 bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[#E74725]/40 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]"
             >
               <span className="text-[12px] font-bold tracking-[0.18em] text-[#E74725]">
                 {String(i + 1).padStart(2, "0")}
@@ -47,12 +46,9 @@ export function IndustryProducts({ categories }) {
       className="w-full scroll-mt-24 bg-white text-[#0B0B0B]"
     >
       <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-12 lg:py-16">
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-wrap items-end justify-between gap-4" data-aos="fade-up">
           <div className="max-w-[62ch]">
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-[#5f5f5f] uppercase">
-              Recommended Products
-            </p>
-            <h2 className="mt-3 max-w-[24ch] text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.1] font-bold tracking-[-0.02em]">
+          <h2 className="max-w-[24ch] text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.1] font-bold tracking-[-0.02em]">
               Categories for this industry<span className="text-[#E74725]">.</span>
             </h2>
           </div>
@@ -65,8 +61,8 @@ export function IndustryProducts({ categories }) {
           </Link>
         </div>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 lg:gap-5">
-          {categories.map((cat) => (
-            <li key={cat.id}>
+          {categories.map((cat, i) => (
+            <li key={cat.id} data-aos="fade-up" data-aos-delay={Math.min(i, 3) * 90}>
               <Link
                 href={`/products?category=${cat.id}`}
                 className="group flex h-full items-center justify-between gap-4 rounded-[4px] border border-black/10 bg-white p-6 transition-colors hover:border-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"

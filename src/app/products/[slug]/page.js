@@ -108,10 +108,7 @@ export default async function ProductDetailPage({ params }) {
           {/* Right: product details */}
           <div className="space-y-8">
             <div>
-              <p className="text-[12px] font-semibold tracking-[0.2em] text-[#E74725] uppercase">
-                {product.category}
-              </p>
-              <h1 className="mt-2 max-w-[40ch] text-[clamp(2rem,4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
+              <h1 className="max-w-[40ch] text-[clamp(2rem,4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
                 {product.name}<span className="text-[#E74725]">.</span>
               </h1>
               {product.modelNumber && (

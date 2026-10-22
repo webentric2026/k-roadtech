@@ -139,7 +139,7 @@ export default function MobileMenu({ open, onClose, pathname }) {
   };
 
   const topLinkClass = (href) =>
-    `flex flex-1 rounded-sm text-left text-[22px] font-medium leading-[1.4] transition-colors focus-visible:outline-2 focus-visible:outline-[#E74725] ${
+    `flex flex-1 rounded-sm text-left text-[19px] font-medium leading-[1.4] transition-colors focus-visible:outline-2 focus-visible:outline-[#E74725] ${
       isActiveLink(href, pathname) ? "text-[#E74725]" : "text-[#0B0B0B]"
     }`;
 
@@ -275,7 +275,7 @@ export default function MobileMenu({ open, onClose, pathname }) {
                           <Link
                             href={`/products?category=${c.id}`}
                             onClick={onClose}
-                            className="flex flex-1 rounded-sm py-2.5 text-left text-[17px] font-medium text-[#0B0B0B] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+                            className="flex flex-1 rounded-sm py-2.5 text-left text-[15px] font-medium text-[#0B0B0B] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
                           >
                             {c.name}
                           </Link>
@@ -311,7 +311,7 @@ export default function MobileMenu({ open, onClose, pathname }) {
                                     <Link
                                       href={`/products?category=${c.id}`}
                                       onClick={onClose}
-                                      className="flex flex-1 rounded-sm py-2 text-left text-[15px] text-[#333333] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+                                      className="flex flex-1 rounded-sm py-2 text-left text-[14px] text-[#333333] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
                                     >
                                       {s.name}
                                     </Link>
@@ -420,7 +420,7 @@ export default function MobileMenu({ open, onClose, pathname }) {
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className="block rounded-sm py-2 text-[16px] text-[#333333] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+                        className="block rounded-sm py-2 text-[15px] text-[#333333] hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
                       >
                         {item.name}
                       </Link>

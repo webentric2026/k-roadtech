@@ -34,11 +34,8 @@ export default function IndustriesPage() {
       {/* Hero */}
       <section aria-label="Industries we serve" className="w-full bg-white">
         <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-16 lg:py-24">
-          <div className="max-w-[62ch]">
-            <p className="text-[12px] font-semibold tracking-[0.22em] text-[#E74725] uppercase">
-              Industries
-            </p>
-            <h1 className="mt-4 max-w-[20ch] text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] font-bold tracking-[-0.02em]">
+          <div className="max-w-[62ch]" data-aos="fade-up">
+            <h1 className="max-w-[20ch] text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] font-bold tracking-[-0.02em]">
               Industries We Serve<span className="text-[#E74725]">.</span>
             </h1>
             <p className="mt-6 max-w-[60ch] text-[15.5px] leading-7 text-[#5f5f5f]">
@@ -55,8 +52,8 @@ export default function IndustriesPage() {
       <section aria-label="All industries" className="w-full bg-[#F5F5F5] text-[#0B0B0B]">
         <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-12 lg:py-16">
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-            {INDUSTRY_PAGES.map((industry) => (
-              <li key={industry.slug}>
+            {INDUSTRY_PAGES.map((industry, i) => (
+              <li key={industry.slug} data-aos="fade-up" data-aos-delay={(i % 3) * 90}>
                 <Link
                   href={`/industries/${industry.slug}`}
                   className="group flex h-full flex-col overflow-hidden rounded-[4px] border border-black/10 bg-white transition-colors hover:border-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"

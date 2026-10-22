@@ -14,7 +14,7 @@ export default function LeadershipSection() {
       className="w-full bg-white text-[#0B0B0B]"
     >
       <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-10 lg:py-12">
-        <div className="max-w-[56ch]">
+        <div className="max-w-[56ch]" data-aos="fade-up">
           <h2 className="mt-2 max-w-[22ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
             {LEADERSHIP.heading}<span className="text-[#E74725]">.</span>
           </h2>
@@ -25,7 +25,7 @@ export default function LeadershipSection() {
 
         <div className="mt-8 grid gap-8 lg:mt-10 lg:gap-10 lg:grid-cols-2 items-start">
           {/* Left: portrait */}
-          <div className="flex justify-center items-start lg:justify-start">
+          <div className="flex justify-center items-start lg:justify-start" data-aos="zoom-in">
             <figure
               className="max-w-[400px] w-full overflow-hidden rounded-[4px] border border-black/10 shadow-[0_20px_40px_rgba(0,0,0,0.10)]"
             >
@@ -40,7 +40,7 @@ export default function LeadershipSection() {
           </div>
 
           {/* Right: message */}
-          <div className="space-y-6">
+          <div className="space-y-6" data-aos="fade-up" data-aos-delay="120">
             <blockquote className="space-y-4">
               {LEADERSHIP.message.split("\n\n").map((para, i) => (
                 <p

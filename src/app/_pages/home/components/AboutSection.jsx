@@ -36,14 +36,14 @@ export default function AboutSection() {
   return (
     <section aria-label="About K Roadtech" className="w-full bg-white text-[#0B0B0B]">
       <div className="mx-auto grid w-full max-w-[1600px] gap-12 px-[clamp(20px,5vw,80px)] py-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:py-24">
-        <div>
+        <div data-aos="fade-up">
           <h2 className="text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
             Who We Are<span className="text-[#E74725]">.</span>
           </h2>
           <p className="mt-4 text-[clamp(1.15rem,1.8vw,1.45rem)] leading-snug font-semibold tracking-tight text-[#E74725]">
             Building Safer Roads Through Reliable Safety Solutions.
           </p>
-          <figure className="mt-8 max-w-[440px] overflow-hidden rounded-[4px] border border-black/10">
+          <figure data-aos="zoom-in" data-aos-delay="120" className="mt-8 max-w-[440px] overflow-hidden rounded-[4px] border border-black/10">
             <Image
               src={IMAGES.aboutImage}
               alt="Road safety product range — signage, cones, barriers, studs and safety wear on a highway"
@@ -81,7 +81,9 @@ export default function AboutSection() {
             {HIGHLIGHTS.map((h, i) => (
               <li
                 key={h.title}
-                className="rounded-[4px] border border-black/10 bg-[#F5F5F5] p-5"
+                data-aos="fade-up"
+                data-aos-delay={Math.min(i, 3) * 90}
+                className="rounded-[4px] border border-black/10 bg-[#F5F5F5] p-5 transition-all duration-200 hover:-translate-y-1 hover:border-[#E74725]/40 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]"
               >
                 <p className="mt-2 text-[15px] font-bold tracking-tight">
                   {h.title}

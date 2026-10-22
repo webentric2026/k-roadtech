@@ -26,11 +26,8 @@ export default function CtaSection() {
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"
       />
 
-      <div className="relative mx-auto flex w-full max-w-[1600px] flex-col items-center px-[clamp(20px,5vw,80px)] py-16 text-center lg:py-24">
-        <p className="text-[12px] font-semibold tracking-[0.22em] text-[#E74725] uppercase">
-          Get started today
-        </p>
-        <h2 className="mt-4 max-w-[22ch] text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] font-bold tracking-[-0.02em]">
+      <div className="relative mx-auto flex w-full max-w-[1600px] flex-col items-center px-[clamp(20px,5vw,80px)] py-16 text-center lg:py-24" data-aos="fade-up">
+        <h2 className="max-w-[22ch] text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] font-bold tracking-[-0.02em]">
           Let&apos;s Build Safer Roads Together<span className="text-[#E74725]">.</span>
         </h2>
         <p className="mt-5 max-w-[58ch] text-[15.5px] leading-7 text-white/70">

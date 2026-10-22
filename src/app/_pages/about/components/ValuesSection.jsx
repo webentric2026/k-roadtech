@@ -11,7 +11,7 @@ export default function ValuesSection() {
       className="w-full bg-white text-[#0B0B0B]"
     >
       <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-12 lg:py-16">
-        <div className="max-w-[56ch] mb-8 lg:mb-12">
+        <div className="max-w-[56ch] mb-8 lg:mb-12" data-aos="fade-up">
           <h2 className="max-w-[20ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
             Our Values<span className="text-[#E74725]">.</span>
           </h2>
@@ -24,10 +24,12 @@ export default function ValuesSection() {
         <div
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {ABOUT.values.map((v) => (
+          {ABOUT.values.map((v, i) => (
             <article
               key={v.id}
-              className="shrink-0 snap-start w-[280px] rounded-[4px] border border-black/10 bg-white p-8 shadow-sm hover:border-[#E74725]/60 transition-colors duration-150 min-w-[280px] sm:w-[300px] sm:min-w-[300px]"
+              data-aos="fade-up"
+              data-aos-delay={Math.min(i, 4) * 80}
+              className="shrink-0 snap-start w-[280px] rounded-[4px] border border-black/10 bg-white p-8 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#E74725]/60 min-w-[280px] sm:w-[300px] sm:min-w-[300px]"
             >
               <h3 className="text-[17px] font-bold tracking-tight">
                 {v.title}

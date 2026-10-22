@@ -116,7 +116,7 @@ export default function IndustriesSlider() {
       className="w-full overflow-hidden bg-white text-[#0B0B0B]"
     >
       <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-16 lg:py-24">
-        <div className="max-w-[62ch]">
+        <div className="max-w-[62ch]" data-aos="fade-up">
           <h2 className="max-w-[20ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
             Industries We Serve<span className="text-[#E74725]">.</span>
           </h2>

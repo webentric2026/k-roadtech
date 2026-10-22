@@ -13,11 +13,8 @@ export default function ProductsHero() {
     <section aria-label="Product range" className="w-full overflow-hidden bg-white text-[#0B0B0B]">
       <div className="relative mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-16 lg:py-24">
         <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20 items-start">
-          <div className="max-w-[52ch]">
-            <p className="text-[12px] font-semibold tracking-[0.22em] text-[#E74725] uppercase">
-              Our Product Range
-            </p>
-            <h1 className="mt-4 max-w-[20ch] text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] font-bold tracking-[-0.02em]">
+          <div className="max-w-[52ch]" data-aos="fade-right">
+            <h1 className="max-w-[20ch] text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] font-bold tracking-[-0.02em]">
               Complete Road Safety Solutions<span className="text-[#E74725]">.</span>
             </h1>
             <p className="mt-6 max-w-[52ch] text-[15.5px] leading-7 text-[#5f5f5f]">
@@ -41,7 +38,7 @@ export default function ProductsHero() {
               </Link>
             </div>
           </div>
-          <div className="flex justify-center items-start lg:justify-start">
+          <div className="flex justify-center items-start lg:justify-start" data-aos="fade-left" data-aos-delay="120">
             <figure
               className="max-w-[520px] w-full overflow-hidden rounded-[4px] border border-black/10 shadow-[0_20px_40px_rgba(0,0,0,0.10)]"
             >

@@ -44,11 +44,8 @@ export default function IndustryHero({
           </nav>
         )}
         <div className="grid items-start gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
-          <div className="max-w-[52ch]">
-            <p className="text-[12px] font-semibold tracking-[0.22em] text-[#E74725] uppercase">
-              {eyebrow}
-            </p>
-            <h1 className="mt-4 max-w-[20ch] text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] font-bold tracking-[-0.02em]">
+          <div className="max-w-[52ch]" data-aos="fade-right">
+            <h1 className="max-w-[20ch] text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] font-bold tracking-[-0.02em]">
               {title}<span className="text-[#E74725]">.</span>
             </h1>
             <p className="mt-6 max-w-[52ch] text-[15.5px] leading-7 text-[#5f5f5f]">
@@ -70,7 +67,7 @@ export default function IndustryHero({
               </Link>
             </div>
           </div>
-          <div className="flex items-start justify-center lg:justify-start">
+          <div className="flex items-start justify-center lg:justify-start" data-aos="fade-left" data-aos-delay="120">
             <figure className="w-full max-w-[520px] overflow-hidden rounded-[4px] border border-black/10 shadow-[0_20px_40px_rgba(0,0,0,0.10)]">
               <Image
                 src={image.src}

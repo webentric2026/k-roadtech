@@ -10,7 +10,7 @@ export default function MissionVisionSection() {
       className="w-full bg-[#F5F5F5] text-[#0B0B0B]"
     >
       <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-12 lg:py-16">
-        <div className="max-w-[56ch]">
+        <div className="max-w-[56ch]" data-aos="fade-up">
           <h2 className="max-w-[20ch] text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
             Mission &amp; Vision<span className="text-[#E74725]">.</span>
           </h2>
@@ -20,7 +20,9 @@ export default function MissionVisionSection() {
           {[ABOUT.mission, ABOUT.vision].map((card, i) => (
             <article
               key={card.title}
-              className="rounded-[4px] border border-black/10 bg-white p-8 shadow-sm hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] transition-shadow duration-200"
+              data-aos="fade-up"
+              data-aos-delay={i * 120}
+              className="rounded-[4px] border border-black/10 bg-white p-8 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#E74725]/40 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]"
             >
               <h3 className="text-[19px] font-bold tracking-tight">
                 {card.title}

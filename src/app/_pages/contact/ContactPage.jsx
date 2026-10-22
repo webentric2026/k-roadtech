@@ -2,10 +2,10 @@ import Link from "next/link";
 import { CONTACT_META } from "@/app/_pages/shared/data/navigation";
 import ContactForm from "./components/ContactForm";
 
-// Dummy office details — replace with the real address when available.
-const OFFICE_ADDRESS = "Plot 123, Industrial Area, Phase II, New Delhi – 110001";
+// Office details + map embed come from the shared contact data.
+const OFFICE_ADDRESS = CONTACT_META.address;
 const MAP_QUERY = encodeURIComponent(OFFICE_ADDRESS);
-const WHATSAPP_LINK = `https://wa.me/${CONTACT_META.phone.replace(/\D/g, "")}`;
+const WHATSAPP_LINK = CONTACT_META.whatsapp;
 
 function PhoneIcon({ className = "" }) {
   return (
@@ -89,8 +89,6 @@ const infoLinkClass =
  * Single `lg` breakpoint throughout so ordering never splits mid-range.
  */
 export default function ContactPage() {
-  const telHref = `tel:${CONTACT_META.phone.replace(/[^+\d]/g, "")}`;
-
   return (
     <main className="flex flex-1 flex-col bg-white text-[#0B0B0B] pt-20">
       {/* Breadcrumbs */}
@@ -117,7 +115,7 @@ export default function ContactPage() {
       <section aria-label="Contact K Roadtech" className="w-full bg-white">
         <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] pt-6 pb-10 lg:pt-8 lg:pb-14">
           {/* Heading — above the form on mobile */}
-          <div className="max-w-[64ch] lg:hidden">
+          <div className="max-w-[64ch] lg:hidden" data-aos="fade-up">
             <h1 className="text-[clamp(2rem,4vw,3.2rem)] leading-[1.05] font-bold tracking-[-0.02em]">
               Contact Us<span className="text-[#E74725]">.</span>
             </h1>
@@ -131,7 +129,7 @@ export default function ContactPage() {
             {/* Contact information */}
             <div className="order-2 lg:order-1">
               {/* Heading — in line with the form card on desktop */}
-              <div className="hidden max-w-[64ch] lg:block">
+              <div className="hidden max-w-[64ch] lg:block" data-aos="fade-up">
                 <h1 className="text-[clamp(2rem,4vw,3.2rem)] leading-[1.05] font-bold tracking-[-0.02em]">
                   Contact Us<span className="text-[#E74725]">.</span>
                 </h1>
@@ -140,16 +138,22 @@ export default function ContactPage() {
                   project discussions, or support.
                 </p>
               </div>
-              <ul className="flex flex-col divide-y divide-black/10 lg:mt-8">
+              <ul className="flex flex-col divide-y divide-black/10 lg:mt-8" data-aos="fade-up" data-aos-delay="100">
                 <li className="flex items-start gap-4 py-4 first:pt-0">
                   <span className={iconBoxClass}>
                     <PhoneIcon className="h-5 w-5" />
                   </span>
                   <span className="min-w-0">
                     <span className="block text-[15px] font-bold">Call Us</span>
-                    <a href={telHref} className={infoLinkClass}>
-                      {CONTACT_META.phone}
-                    </a>
+                    {CONTACT_META.phones.map((phone) => (
+                      <a
+                        key={phone}
+                        href={`tel:${phone.replace(/[^+\d]/g, "")}`}
+                        className={`${infoLinkClass} mt-0.5`}
+                      >
+                        {phone}
+                      </a>
+                    ))}
                   </span>
                 </li>
                 <li className="flex items-start gap-4 py-4">
@@ -202,7 +206,7 @@ export default function ContactPage() {
 
             {/* Form card — first on mobile */}
             <div className="order-1 lg:order-2">
-              <div className="h-fit rounded-[4px] border border-black/10 bg-white p-6 shadow-[0_20px_40px_rgba(0,0,0,0.08)] sm:p-8 lg:sticky lg:top-28">
+              <div className="h-fit rounded-[4px] border border-black/10 bg-white p-6 shadow-[0_20px_40px_rgba(0,0,0,0.08)] sm:p-8 lg:sticky lg:top-28" data-aos="fade-left">
                 <h2 className="text-[clamp(1.4rem,2.4vw,1.9rem)] leading-tight font-bold tracking-[-0.02em]">
                   Get in Touch
                 </h2>
@@ -221,13 +225,13 @@ export default function ContactPage() {
       {/* Map */}
       <section aria-label="Office location map" className="w-full bg-white">
         <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] pb-16 lg:pb-24">
-          <h2 className="text-[clamp(1.4rem,2.4vw,1.9rem)] leading-tight font-bold tracking-[-0.02em]">
+          <h2 className="text-[clamp(1.4rem,2.4vw,1.9rem)] leading-tight font-bold tracking-[-0.02em]" data-aos="fade-up">
             Visit Our Office<span className="text-[#E74725]">.</span>
           </h2>
-          <div className="mt-5 overflow-hidden rounded-[4px] border border-black/10">
+          <div className="mt-5 overflow-hidden rounded-[4px] border border-black/10" data-aos="zoom-in">
             <iframe
               title="K Roadtech office location map"
-              src={`https://www.google.com/maps?q=${MAP_QUERY}&output=embed`}
+              src={CONTACT_META.mapEmbedUrl}
               className="h-[300px] w-full border-0 sm:h-[340px] lg:h-[380px]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

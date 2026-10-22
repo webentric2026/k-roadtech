@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ArrowRight } from "@/app/_pages/shared/components/icons";
+import { QuoteButton } from "@/app/_pages/shared/components/QuotePopup";
 import { ABOUT } from "../data/about";
 
 /**
@@ -12,7 +12,7 @@ export default function CompanyStory() {
       className="w-full bg-white text-[#0B0B0B]"
     >
       <div className="mx-auto grid w-full max-w-[1600px] gap-12 px-[clamp(20px,5vw,80px)] py-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:py-24">
-        <div>
+        <div data-aos="fade-right">
           <h2 className="text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
             Our Story<span className="text-[#E74725]">.</span>
           </h2>
@@ -32,13 +32,10 @@ export default function CompanyStory() {
               </p>
             ))}
           </div>
-          <Link
-            href="/contact"
-            className="group mt-7 inline-flex h-[48px] items-center gap-2 rounded-[3px] bg-[#0B0B0B] px-[28px] text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-[#E74725] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E74725]"
-          >
+          <QuoteButton className="group mt-7 inline-flex h-[48px] cursor-pointer items-center gap-2 rounded-[3px] bg-[#0B0B0B] px-[28px] text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-[#E74725] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E74725]">
             Get a Project Quote
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </Link>
+          </QuoteButton>
         </div>
 
         <div>
@@ -49,7 +46,9 @@ export default function CompanyStory() {
             {ABOUT.highlights.map((h, i) => (
               <li
                 key={h.title}
-                className="rounded-[4px] border border-black/10 bg-[#F5F5F5] p-5"
+                data-aos="fade-up"
+                data-aos-delay={Math.min(i, 3) * 90}
+                className="rounded-[4px] border border-black/10 bg-[#F5F5F5] p-5 transition-all duration-200 hover:-translate-y-1 hover:border-[#E74725]/40 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]"
               >
                 <p className="mt-2 text-[15px] font-bold tracking-tight">
                   {h.title}

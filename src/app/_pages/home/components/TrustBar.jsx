@@ -44,6 +44,8 @@ export default function TrustBar() {
           {ITEMS.map((t, i) => (
             <div
               key={t.title}
+              data-aos="fade-up"
+              data-aos-delay={i * 100}
               className="group w-[80%] shrink-0 snap-start sm:w-[58%] lg:w-auto"
             >
               <p

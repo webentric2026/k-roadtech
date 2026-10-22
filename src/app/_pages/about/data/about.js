@@ -3,6 +3,9 @@
  */
 
 import { IMAGES } from "@/assets/images";
+import { CONTACT_META } from "@/app/_pages/shared/data/navigation";
+
+const callHref = `tel:${CONTACT_META.phone.replace(/[^+\d]/g, "")}`;
 
 export const ABOUT = {
   eyebrow: "ABOUT K ROADTECH",
@@ -72,9 +75,9 @@ export const ABOUT = {
     desc:
       "Looking for reliable road safety equipment or traffic management solutions for your next project? Connect with our team to discuss your requirements and explore the right products for your needs.",
     buttons: [
-      { label: "Request a Quote", href: "/contact", primary: true },
-      { label: "Product Catalogue", href: "/products", primary: false },
-      { label: "Speak to Team", href: "/contact", primary: false },
+        { label: "Request a Quote", href: "/contact", primary: true },
+        { label: "Product Catalogue", href: "/products", primary: false },
+        { label: "Speak to Team", href: callHref, primary: false },
     ],
   },
 };
