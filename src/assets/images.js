@@ -55,6 +55,8 @@ import restrictionGroup from "./images/products/road-signage/weight-restriction-
 import curveWarningGroup from "./images/products/road-signage/other-traffic-regulation-right-curve-warning-left-curve-warning-hairpin-bend-warning-steep-a.webp";
 import warningCrossingGroup from "./images/products/road-signage/narrow-road-road-narrows-pedestrian-crossing-school-ahead-cycle-crossing-railway-crossing-warning-sign_converted.webp";
 import workFacilityGroup from "./images/products/road-signage/road-work-slippery-road-other-hazard-warning-hospital-first-aid-parking-sign_converted.webp";
+import gantryBoard1 from "./images/products/road-signage/gantry-board-1.webp";
+import gantryBoard2 from "./images/products/road-signage/gantry-board-2.webp";
 import otherSigns from "./images/products/road-signage/other_converted.webp";
 import exitAssemblyGroup from "./images/products/industrial-emergency-signage/assembly-point-drinking-water-emergency-warning-exit-emergency-exit-sign.webp";
 import fireProhibitionGroup from "./images/products/industrial-emergency-signage/fire-exit-no-smoking-no-entry-fire-extinguisher-fire-alarm-other-mandatory-ppe-sign.webp";
@@ -159,6 +161,8 @@ export const IMAGES = {
     curveWarningGroup,
     warningCrossingGroup,
     workFacilityGroup,
+    gantryBoard1,
+    gantryBoard2,
     otherSigns,
     exitAssemblyGroup,
     fireProhibitionGroup,

@@ -402,6 +402,24 @@ const CATEGORIES = [
         subcategory: "Cautionary and Warning Signs",
         image: "workFacilityGroup",
       },
+      {
+        id: "gantry-board-blue-highway",
+        name: "Overhead Gantry Board — Highway Direction (Blue)",
+        modelNumber: null,
+        description:
+          "Blue overhead gantry direction board with Hindi + English place names, arrows and distances for highways and expressways.",
+        subcategory: "Gantry Boards",
+        image: "gantryBoard1",
+      },
+      {
+        id: "gantry-board-green-direction",
+        name: "Overhead Gantry Board — Direction & Place (Green)",
+        modelNumber: null,
+        description:
+          "Green overhead gantry and direction boards with Hindi place names, arrows and distances for state highways and city routes.",
+        subcategory: "Gantry Boards",
+        image: "gantryBoard2",
+      },
     ],
   },
 
