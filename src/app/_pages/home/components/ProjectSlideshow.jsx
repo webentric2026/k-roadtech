@@ -153,8 +153,9 @@ export default function ProjectSlideshow() {
         >
           {PRODUCT_CATEGORIES.map((cat) => {
             const lead = cat.products?.[0];
-            const src = lead?.image
-              ? IMAGES.productCutouts?.[lead.image]
+            const imageKey = cat.image || lead?.image;
+            const src = imageKey
+              ? IMAGES.productCutouts?.[imageKey]
               : undefined;
             const count = cat.products?.length ?? 0;
             return (
@@ -169,7 +170,7 @@ export default function ProjectSlideshow() {
                   {src ? (
                     <Image
                       src={src}
-                      alt={lead.name}
+                      alt={lead?.name || cat.name}
                       fill
                       sizes="280px"
                       className="object-contain object-center p-6 transition-transform duration-500 ease-out group-hover:scale-[1.06]"

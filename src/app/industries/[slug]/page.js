@@ -19,6 +19,12 @@ export async function generateMetadata({ params }) {
   return {
     title: `${industry.name} — K Roadtech Safety Solutions`,
     description: `${industry.tagline} ${industry.description}`,
+    alternates: { canonical: `/industries/${slug}` },
+    openGraph: {
+      title: industry.name,
+      description: industry.tagline,
+      type: "website",
+    },
   };
 }
 

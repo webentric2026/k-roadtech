@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { PRODUCT_CATEGORIES } from "@/app/_pages/products/data/products";
 import { CloseIcon } from "./icons";
 
@@ -40,12 +41,21 @@ function QuoteForm({ onDone }) {
         ? `Quote Request — ${category}`
         : "Quote Request",
       message: String(data.get("message") || "").trim(),
+      website: String(data.get("website") || "").trim(),
+      consent: data.get("consent") === "on",
     };
 
     if (!payload.name || !payload.email || !payload.message) {
       setStatus({
         type: "error",
         message: "Please fill in your name, email, and requirements.",
+      });
+      return;
+    }
+    if (!payload.consent) {
+      setStatus({
+        type: "error",
+        message: "Please accept the Terms & Conditions and Privacy Policy.",
       });
       return;
     }
@@ -162,6 +172,46 @@ function QuoteForm({ onDone }) {
         </p>
       )}
 
+      {/* Honeypot — invisible to humans, catches bots. */}
+      <input
+        type="text"
+        name="website"
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="hidden"
+      />
+
+      <div className="mt-3.5 flex items-start gap-3">
+        <input
+          id="quote-consent"
+          name="consent"
+          type="checkbox"
+          disabled={sending}
+          className="mt-1 h-4 w-4 shrink-0 cursor-pointer accent-[#E74725]"
+        />
+        <label
+          htmlFor="quote-consent"
+          className="cursor-pointer text-[12.5px] leading-6 text-[#5f5f5f]"
+        >
+          I agree to the{" "}
+          <Link
+            href="/terms-conditions"
+            className="rounded-sm font-medium text-[#0B0B0B] transition-colors hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+          >
+            Terms & Conditions
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="/privacy-policy"
+            className="rounded-sm font-medium text-[#0B0B0B] transition-colors hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
+          >
+            Privacy Policy
+          </Link>
+          .
+        </label>
+      </div>
+
       <button
         type="submit"
         disabled={sending}
@@ -270,19 +320,10 @@ function QuoteAutoPopup({ onTrigger }) {
     if (pathname === "/contact") return;
     let seen = false;
     let sent = false;
-    let force = false;
     try {
       seen = sessionStorage.getItem("kroadtech-quote-popup-seen") === "1";
       sent = sessionStorage.getItem("kroadtech-quote-sent") === "1";
-      force = new URLSearchParams(window.location.search).has("quote");
     } catch {}
-    // Debug override: visiting any page with ?quote=1 opens the popup
-    // immediately, regardless of session flags.
-    if (force) {
-      triggeredRef.current = true;
-      onTrigger();
-      return;
-    }
     if (seen || sent) return;
 
     function fire() {

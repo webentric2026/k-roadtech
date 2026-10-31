@@ -29,6 +29,8 @@ export default function ContactForm() {
       email: String(data.get("email") || "").trim(),
       phone: String(data.get("phone") || "").trim(),
       message: String(data.get("message") || "").trim(),
+      website: String(data.get("website") || "").trim(),
+      consent: data.get("consent") === "on",
     };
     if (payload.phone) payload.phone = `+91 ${payload.phone}`;
 
@@ -36,6 +38,13 @@ export default function ContactForm() {
       setStatus({
         type: "error",
         message: "Please fill in your name, email, and message.",
+      });
+      return;
+    }
+    if (!payload.consent) {
+      setStatus({
+        type: "error",
+        message: "Please accept the Terms & Conditions and Privacy Policy.",
       });
       return;
     }
@@ -187,21 +196,34 @@ export default function ContactForm() {
         </p>
       )}
 
-      <div className="mt-5">
-        <button
-          type="submit"
+      {/* Honeypot — invisible to humans, catches bots. */}
+      <input
+        type="text"
+        name="website"
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="hidden"
+      />
+
+      <div className="mt-4 flex items-start gap-3">
+        <input
+          id="contact-consent"
+          name="consent"
+          type="checkbox"
           disabled={sending}
-          className="inline-flex h-[48px] w-full items-center justify-center rounded-[3px] bg-[#E74725] px-[28px] text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-[#c93a1c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B0B0B] disabled:cursor-not-allowed disabled:opacity-70"
+          className="mt-1 h-4 w-4 shrink-0 cursor-pointer accent-[#E74725]"
+        />
+        <label
+          htmlFor="contact-consent"
+          className="cursor-pointer text-[13px] leading-6 text-[#5f5f5f]"
         >
-          {sending ? "Sending…" : "Submit"}
-        </button>
-        <p className="mt-3 text-center text-[12.5px] leading-5 text-[#5f5f5f]">
-          By contacting us, you agree to our{" "}
+          I agree to the{" "}
           <Link
             href="/terms-conditions"
             className="rounded-sm font-medium text-[#0B0B0B] transition-colors hover:text-[#E74725] focus-visible:outline-2 focus-visible:outline-[#E74725]"
           >
-            Terms of Service
+            Terms & Conditions
           </Link>{" "}
           and{" "}
           <Link
@@ -210,7 +232,18 @@ export default function ContactForm() {
           >
             Privacy Policy
           </Link>
-        </p>
+          .
+        </label>
+      </div>
+
+      <div className="mt-5">
+        <button
+          type="submit"
+          disabled={sending}
+          className="inline-flex h-[48px] w-full items-center justify-center rounded-[3px] bg-[#E74725] px-[28px] text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-[#c93a1c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B0B0B] disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {sending ? "Sending…" : "Submit"}
+        </button>
       </div>
     </form>
   );

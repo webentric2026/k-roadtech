@@ -13,6 +13,10 @@ import { ArrowRight } from "@/app/_pages/shared/components/icons";
 /**
  * Product detail page — shows product info with a contact enquiry path.
  */
+export function generateStaticParams() {
+  return ALL_PRODUCTS.map((p) => ({ slug: p.id }));
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const product = getProductBySlug(slug);
@@ -20,6 +24,12 @@ export async function generateMetadata({ params }) {
   return {
     title: `${product.name} — K Roadtech Safety Solutions`,
     description: product.description,
+    alternates: { canonical: `/products/${product.id}` },
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      type: "website",
+    },
   };
 }
 
@@ -35,6 +45,19 @@ export default async function ProductDetailPage({ params }) {
 
   return (
     <main className="flex flex-1 flex-col bg-white text-[#0B0B0B]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.name,
+            description: product.description,
+            category: product.category,
+            brand: { "@type": "Brand", name: "K Roadtech" },
+          }),
+        }}
+      />
       {/* Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="w-full bg-white text-[#0B0B0B]">
         <div className="mx-auto w-full max-w-[1600px] px-[clamp(20px,5vw,80px)] py-4 lg:py-6">

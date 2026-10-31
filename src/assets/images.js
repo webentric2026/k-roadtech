@@ -22,7 +22,7 @@ import cutoutMirror from "./images/products/mirror.png";
 import cutoutReflector from "./images/products/reflector.png";
 import cutoutStud from "./images/products/stud.png";
 import cutoutTactileStud from "./images/products/tactileStud.png";
-import cutoutTile from "./images/products/tile.png";
+import cutoutTile from "./images/products/tile.webp";
 // Category product photos (one import per supplied file)
 import puTactileTileDirectional from "./images/products/tactile-paving-solutions/pu-tactile-tile-directional-design_converted.webp";
 import puTactileTileWarning from "./images/products/tactile-paving-solutions/pu-tactile-tile-warning-design_converted.webp";

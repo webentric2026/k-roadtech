@@ -17,11 +17,13 @@ export async function generateMetadata({ params }) {
     title: `${post.title} | K Roadtech Delhi`,
     description: post.excerpt,
     keywords: post.keywords,
+    alternates: { canonical: `/blogs/${slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
       publishedTime: post.date,
+      siteName: "K Roadtech Safety Solutions",
     },
   };
 }

@@ -17,6 +17,7 @@ const CATEGORIES = [
     description:
       "Tactile paving products designed to support accessible pedestrian movement and provide directional and warning cues in public and commercial spaces.",
     subcategory: null,
+    image: "tile",
     products: [
       {
         id: "pu-tactile-tile-directional-design",

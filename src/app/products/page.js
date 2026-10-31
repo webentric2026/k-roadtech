@@ -11,6 +11,26 @@ import ProductEnquiryCTA from "@/app/_pages/products/components/ProductEnquiryCT
  */
 export const dynamic = "force-dynamic";
 
+export async function generateMetadata({ searchParams }) {
+  const resolvedParams = await searchParams;
+  const rawCategory = resolvedParams?.category;
+  const catId = Array.isArray(rawCategory) ? rawCategory[0] : rawCategory;
+  const category = catId ? getCategoryById(catId) : null;
+  if (category) {
+    return {
+      title: `${category.name} — K Roadtech Safety Solutions`,
+      description: category.description,
+      alternates: { canonical: `/products?category=${category.id}` },
+    };
+  }
+  return {
+    title: "All Products — K Roadtech Safety Solutions",
+    description:
+      "Browse the full K Roadtech catalogue — tactile paving, delineators, road reflectors, mirrors, cones, speed control, signage, parking and safety wear.",
+    alternates: { canonical: "/products" },
+  };
+}
+
 export default async function ProductsPage({ searchParams }) {
   const resolvedParams = await searchParams;
   const rawCategory = resolvedParams?.category;

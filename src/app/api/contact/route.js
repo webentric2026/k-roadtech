@@ -16,7 +16,23 @@ function clean(value, max) {
  * POST /api/contact — validate the enquiry and relay it to the site owner via SMTP.
  * Configure via env: SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS,
  * CONTACT_TO (defaults to the site contact email), CONTACT_FROM (defaults to SMTP_USER).
+ * Guards: honeypot field, required consent checkbox, and a simple per-IP rate limit.
  */
+
+// In-memory sliding-window rate limit: 5 submissions per IP per 10 minutes.
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 5;
+const rateHits = new Map();
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const hits = (rateHits.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (hits.length >= RATE_MAX) return true;
+  hits.push(now);
+  rateHits.set(ip, hits);
+  return false;
+}
+
 export async function POST(request) {
   let body;
   try {
@@ -30,6 +46,28 @@ export async function POST(request) {
   const phone = clean(body?.phone, MAX.phone);
   const subject = clean(body?.subject, MAX.subject);
   const message = clean(body?.message, MAX.message);
+
+  // Honeypot: bots fill this hidden field — accept silently without sending.
+  if (clean(body?.website, 100)) {
+    return Response.json({ ok: true });
+  }
+
+  if (body?.consent !== true) {
+    return Response.json(
+      { error: "Please accept the Terms & Conditions and Privacy Policy." },
+      { status: 400 }
+    );
+  }
+
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "unknown";
+  if (isRateLimited(ip)) {
+    return Response.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    );
+  }
 
   if (!name || !email || !message) {
     return Response.json(
@@ -76,6 +114,7 @@ export async function POST(request) {
       `Email: ${email}`,
       phone ? `Phone: ${phone}` : null,
       subject ? `Subject: ${subject}` : null,
+      "Consent: accepted via website form",
       "",
       message,
     ]
