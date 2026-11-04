@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { SITE_URL } from "@/app/lib/seo";
 
 export const metadata = {
   title: "Terms & Conditions — K Roadtech Safety Solutions",
   description:
     "Terms governing the use of the K Roadtech Safety Solutions website, product information, and enquiry services.",
-  alternates: { canonical: "/terms-conditions" },
+  alternates: { canonical: `${SITE_URL}/terms-conditions` },
+  robots: { index: true, follow: true },
 };
 
 const SECTIONS = [

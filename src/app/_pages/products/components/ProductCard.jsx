@@ -18,7 +18,7 @@ export default function ProductCard({ product }) {
         {product.image && IMAGES.productCutouts?.[product.image] ? (
           <Image
             src={IMAGES.productCutouts[product.image]}
-            alt={`${product.name} product image`}
+            alt={`${product.name} — ${product.category} by K Roadtech Delhi`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-contain object-center"

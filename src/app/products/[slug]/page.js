@@ -9,9 +9,17 @@ import {
 } from "@/app/_pages/products/data/products";
 import ProductCard from "@/app/_pages/products/components/ProductCard";
 import { ArrowRight } from "@/app/_pages/shared/components/icons";
+import {
+  SITE_URL,
+  DEFAULT_OG_IMAGE,
+  getProductKeywords,
+  buildBreadcrumbJsonLd,
+  buildProductJsonLd,
+} from "@/app/lib/seo";
 
 /**
- * Product detail page — shows product info with a contact enquiry path.
+ * Product detail page — one indexable URL per product name so every
+ * product works as a search keyword in Google Search Console.
  */
 export function generateStaticParams() {
   return ALL_PRODUCTS.map((p) => ({ slug: p.id }));
@@ -21,14 +29,27 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) return {};
+  const keywords = getProductKeywords(product);
+  const title = `${product.name} — Manufacturer in Delhi, India`;
+  const description = `${product.description} Buy ${product.name} (${product.category}${product.subcategory ? ` — ${product.subcategory}` : ""}) from K Roadtech, Delhi. Supplied across India. Request price & quote.`;
   return {
-    title: `${product.name} — K Roadtech Safety Solutions`,
-    description: product.description,
-    alternates: { canonical: `/products/${product.id}` },
+    title,
+    description,
+    keywords,
+    alternates: { canonical: `${SITE_URL}/products/${product.id}` },
     openGraph: {
-      title: product.name,
-      description: product.description,
+      title: `${product.name} | K Roadtech Delhi`,
+      description,
       type: "website",
+      url: `${SITE_URL}/products/${product.id}`,
+      siteName: "K Roadtech Safety Solutions",
+      images: [{ url: DEFAULT_OG_IMAGE, alt: product.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | K Roadtech`,
+      description,
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }
@@ -43,20 +64,26 @@ export default async function ProductDetailPage({ params }) {
     (p) => p.category === product.category && p.id !== product.id
   ).slice(0, 4);
 
+  const productJsonLd = buildProductJsonLd(product, category?.id);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Products", url: "/products" },
+    {
+      name: product.category,
+      url: `/products?category=${category?.id ?? ""}`,
+    },
+    { name: product.name, url: `/products/${product.id}` },
+  ]);
+
   return (
     <main className="flex flex-1 flex-col bg-white text-[#0B0B0B]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: product.name,
-            description: product.description,
-            category: product.category,
-            brand: { "@type": "Brand", name: "K Roadtech" },
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="w-full bg-white text-[#0B0B0B]">
@@ -108,10 +135,11 @@ export default async function ProductDetailPage({ params }) {
               {product.image && IMAGES.productCutouts?.[product.image] ? (
                 <Image
                   src={IMAGES.productCutouts[product.image]}
-                  alt={product.name}
+                  alt={`${product.name} — ${product.category} by K Roadtech Delhi`}
                   fill
                   sizes="(max-width: 768px) 100vw, 600px"
                   className="object-contain object-center"
+                  priority={false}
                 />
               ) : (
                 <div className="flex h-full w-full items-center justify-center rounded-sm border border-dashed border-black/10 text-[11px] font-medium tracking-[0.14em] text-[#A3A3A3] uppercase">
@@ -134,6 +162,11 @@ export default async function ProductDetailPage({ params }) {
               <h1 className="max-w-[40ch] text-[clamp(2rem,4vw,3rem)] leading-[1.05] font-bold tracking-[-0.02em]">
                 {product.name}<span className="text-[#E74725]">.</span>
               </h1>
+              <p className="mt-3 text-[14px] text-[#5f5f5f]">
+                {product.category}
+                {product.subcategory ? ` — ${product.subcategory}` : ""} |
+                Manufacturer in Delhi, Supplier across India
+              </p>
               {product.modelNumber && (
                 <p className="mt-3 text-[14px] font-semibold text-[#0B0B0B]">
                   Model: {product.modelNumber}
@@ -147,18 +180,21 @@ export default async function ProductDetailPage({ params }) {
             </div>
 
             <div className="border-t border-black/10 pt-6">
-              <h3 className="mb-4 text-[16px] font-bold tracking-tight text-[#0B0B0B]">
+              <h2 className="mb-4 text-[16px] font-bold tracking-tight text-[#0B0B0B]">
                 Overview
-              </h3>
+              </h2>
               <p className="text-[15px] leading-7 text-[#5f5f5f]">
-                {product.description || "No description available for this product."}
+                {product.description || "No description available for this product."}{" "}
+                Manufactured by K Roadtech Safety Solutions, New Delhi and supplied
+                across India for highways, urban roads, institutions and industrial
+                sites.
               </p>
             </div>
 
             <div className="border-t border-black/10 pt-6">
-              <h3 className="mb-4 text-[16px] font-bold tracking-tight text-[#0B0B0B]">
+              <h2 className="mb-4 text-[16px] font-bold tracking-tight text-[#0B0B0B]">
                 Product Details
-              </h3>
+              </h2>
               <dl className="overflow-hidden rounded-[4px] border border-black/10">
                 <div className="flex flex-col gap-1 bg-[#F5F5F5] px-5 py-3.5 sm:flex-row sm:items-center sm:justify-between">
                   <dt className="text-[13px] font-semibold tracking-wide text-[#5f5f5f] uppercase">
@@ -192,11 +228,11 @@ export default async function ProductDetailPage({ params }) {
             </div>
 
             <div className="border-t border-black/10 pt-6">
-              <h3 className="mb-4 text-[16px] font-bold tracking-tight text-[#0B0B0B]">
+              <h2 className="mb-4 text-[16px] font-bold tracking-tight text-[#0B0B0B]">
                 Enquiry
-              </h3>
+              </h2>
               <p className="mb-4 text-[15px] leading-7 text-[#5f5f5f]">
-                Request a quotation for this product. Our team will respond
+                Request {product.name} price in India. Our team will respond
                 with pricing and availability.
               </p>
               <Link

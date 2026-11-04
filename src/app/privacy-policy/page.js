@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { SITE_URL } from "@/app/lib/seo";
 
 export const metadata = {
   title: "Privacy Policy — K Roadtech Safety Solutions",
   description:
     "How K Roadtech Safety Solutions collects, uses, and protects your information when you use our website and enquiry forms.",
-  alternates: { canonical: "/privacy-policy" },
+  alternates: { canonical: `${SITE_URL}/privacy-policy` },
+  robots: { index: true, follow: true },
 };
 
 const SECTIONS = [
